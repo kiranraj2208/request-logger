@@ -15,7 +15,7 @@ pipeline {
     stage('Build Image') {
       steps {
       sh "docker build -t kiranraj2208/request-logger:${env.BUILD_ID} ."
-      sh "docker tag kiranraj2208/request-logger:${env.BUILD_ID} brainupgrade/request-logger:latest"
+      sh "docker tag kiranraj2208/request-logger:${env.BUILD_ID} kiranraj2208/request-logger:latest"
       }
     }
     
@@ -28,8 +28,8 @@ pipeline {
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
         sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-        sh "docker push brainupgrade/request-logger:${env.BUILD_ID}"
-        sh "docker push brainupgrade/request-logger:latest"
+        sh "docker push kiranraj2208/request-logger:${env.BUILD_ID}"
+        sh "docker push kiranraj2208/request-logger:latest"
       }
     }
   }
